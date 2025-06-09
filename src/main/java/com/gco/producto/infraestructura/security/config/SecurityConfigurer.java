@@ -1,6 +1,7 @@
 package com.gco.producto.infraestructura.security.config;
 
 
+import com.gco.producto.dominio.usecase.security.DetalleUsuarioUseCase;
 import com.gco.producto.infraestructura.security.filter.AuthFiltroToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import  com.gco.producto.infraestructura.security.service.*;
 
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
@@ -20,7 +20,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     /* ~ Autowired
     -------------------------------------------------------------- */
     @Autowired
-    private MiUserDetailsService userDetailsService;
+    private DetalleUsuarioUseCase userDetailsService;
 
     @Autowired
     private AuthFiltroToken authFiltroToken;
@@ -40,7 +40,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     /**
      * Indicamos que queremos una autenticacion personalizada en este caso definimos el comportamiento
-     * del <b>serDetailsService</b> en nuestra clase {@link MiUserDetailsService}, esto permite personalizar
+     * del <b>serDetailsService</b> en nuestra clase {@link DetalleUsuarioUseCase}, esto permite personalizar
      * la autenticacion.
      * Tambien indicamos que debe cifrar la contraseña que se cree o que se analice.
      * @param auth usado para indicar la autenticacion por medio de la BD.

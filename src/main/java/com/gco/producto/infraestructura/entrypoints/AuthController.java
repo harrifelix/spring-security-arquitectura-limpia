@@ -1,6 +1,7 @@
 package com.gco.producto.infraestructura.entrypoints;
 
 
+import com.gco.producto.dominio.usecase.security.DetalleUsuarioUseCase;
 import com.gco.producto.infraestructura.security.payload.AutenticacionLogin;
 import com.gco.producto.infraestructura.security.payload.AutenticacionResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.*;
 import com.gco.producto.dominio.gateway.*;
-import  com.gco.producto.infraestructura.security.service.*;
 import com.gco.producto.infraestructura.security.utils.*;
 import  com.gco.producto.infraestructura.adapters.entidad.*;
 import  java.util.*;
@@ -38,7 +38,7 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authManager;
     @Autowired
-    private MiUserDetailsService miUserDetailsService;
+    private DetalleUsuarioUseCase detalleUsuarioUseCase;
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -79,7 +79,7 @@ public class AuthController {
         } // fin de try~catch
 
         // Obtenemos los datos del usuario de la BD para construir el token
-        final UserDetails userDetails = miUserDetailsService.loadUserByUsername(autLogin.getUsername());
+        final UserDetails userDetails = detalleUsuarioUseCase.loadUserByUsername(autLogin.getUsername());
         final String token = jwtUtil.creatToken(userDetails);
 
         List<GrantedAuthority> authorities = new ArrayList<>();

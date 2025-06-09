@@ -1,4 +1,4 @@
-package com.gco.producto.infraestructura.security.service;
+package com.gco.producto.dominio.usecase.security;
 
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +13,7 @@ import com.gco.producto.infraestructura.adapters.entidad.*;
  * Esta clase proporciona la implementacion para establecer informacion del usuario.
  * Almacenando información del usuario que más tarde se encapsula en objetos de autenticación
  */
-public class MiUserDetails implements UserDetails {
+public class DetalleUsuarioSecurityUseCase implements UserDetails {
     /* ~ Propiedades
     ==================================== */
     private String username;
@@ -23,7 +23,7 @@ public class MiUserDetails implements UserDetails {
 
     /* ~ Metodos
     ==================================== */
-    public MiUserDetails(Usuario usuario){
+    public DetalleUsuarioSecurityUseCase(Usuario usuario){
         this.authorities = new ArrayList<SimpleGrantedAuthority>();
         this.username = usuario.getUsername();
         this.password = usuario.getPassword();

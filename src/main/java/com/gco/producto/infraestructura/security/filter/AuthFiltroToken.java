@@ -1,6 +1,7 @@
 package com.gco.producto.infraestructura.security.filter;
 
 
+import com.gco.producto.dominio.usecase.security.DetalleUsuarioUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,9 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import  com.gco.producto.infraestructura.security.service.*;
+
 import com.gco.producto.infraestructura.security.utils.*;
-import org.springframework.web.bind.annotation.*;
+
 /**
  * Clase que interceptara las peticiones para asegurarse de validar el token del usuario hacia el servidor
  */
@@ -26,7 +27,7 @@ public class AuthFiltroToken extends OncePerRequestFilter {
     /* ~ Propiedades
     ==================================== */
     @Autowired
-    private MiUserDetailsService userDetailsService;
+    private DetalleUsuarioUseCase userDetailsService;
     @Autowired
     private JwtUtil jwtUtil;
 

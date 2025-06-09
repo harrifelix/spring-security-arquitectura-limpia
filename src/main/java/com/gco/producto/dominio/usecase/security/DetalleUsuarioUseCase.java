@@ -1,4 +1,4 @@
-package com.gco.producto.infraestructura.security.service;
+package com.gco.producto.dominio.usecase.security;
 
 import  com.gco.producto.infraestructura.adapters.repositorio.*;
 import com.gco.producto.infraestructura.adapters.entidad.*;
@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import com.gco.producto.infraestructura.adapters.entidad.*;
+
 import java.util.Optional;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Component;
  * Permite implementar el metodo para cargar los datos de un usuario especifico atraves de una BD.
  */
 @Component
-public class MiUserDetailsService implements UserDetailsService {
+public class DetalleUsuarioUseCase implements UserDetailsService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -35,7 +34,7 @@ public class MiUserDetailsService implements UserDetailsService {
         usuario.orElseThrow(() -> new UsernameNotFoundException("No se encontro el usuario "+ username
                 +" en la BD"));
 
-        return usuario.map(MiUserDetails::new).get();
+        return usuario.map(DetalleUsuarioSecurityUseCase::new).get();
 
     } // din de la carga
 
