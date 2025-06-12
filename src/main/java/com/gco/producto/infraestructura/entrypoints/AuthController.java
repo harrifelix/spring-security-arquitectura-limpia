@@ -65,6 +65,21 @@ public class AuthController {
         return ResponseEntity.ok("Usuario registrado correctamente");
     } // fin de la pagina de registro
 
+    @PostMapping("/logout")
+    @CrossOrigin("*")
+    public ResponseEntity<?> logout(@RequestBody Usuario usuario){
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+
+        // Asignar role de user
+        Role role = roleService.buscarRolePorId(3);
+        usuario.agregarRoleALista(role);
+        usuario.setActivo(true);
+        usuarioService.guardarUsuario(usuario);
+
+        return ResponseEntity.ok("Usuario registrado correctamente");
+    } // fin de la pagina de registro
+
+
     @PostMapping("/iniciar")
     @CrossOrigin("*")
     public ResponseEntity<?> iniciarSesion(@RequestBody AutenticacionLogin autLogin) throws Exception {
@@ -73,7 +88,6 @@ public class AuthController {
             authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(autLogin.getUsername(), autLogin.getPassword())
             );
-
         } catch (BadCredentialsException ex) {
             throw new Exception("Error en el username o contraseña " + ex.getMessage());
         } // fin de try~catch
